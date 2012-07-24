@@ -1,0 +1,3 @@
+[submodule "WEPopover"]
+	path = WEPopover
+	url = git://github.com/werner77/WEPopover.git
