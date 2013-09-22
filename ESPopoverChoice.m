@@ -13,18 +13,11 @@
 
 + (ESPopoverChoice *)popoverChoiceWithName:(NSString *)newName value:(NSNumber *)newValue
 {
-	ESPopoverChoice *p = [[[ESPopoverChoice alloc] init] autorelease];
+	ESPopoverChoice *p = [[ESPopoverChoice alloc] init];
 	p.name = newName;
 	p.value = newValue;
 	return p;
 }
 
-- (void)dealloc
-{
-	self.name = nil;
-	self.value = nil;
-	
-	[super dealloc];
-}
 
 @end

@@ -16,8 +16,8 @@
 
 @interface ESPopoverChoicesSelectionController : UITableViewController
 
-@property (nonatomic, retain) NSArray *choices;
-@property (nonatomic, assign) id<ESPopoverChoicesSelectionControllerDelegate> delegate;
+@property (nonatomic, strong) NSArray *choices;
+@property (nonatomic, weak) id<ESPopoverChoicesSelectionControllerDelegate> delegate;
 @property (nonatomic) int tag;
 
 @end

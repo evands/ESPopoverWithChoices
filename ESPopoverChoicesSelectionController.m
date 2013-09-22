@@ -22,7 +22,6 @@
 	self.delegate = nil;
 	self.choices = nil;
 	
-	[super dealloc];
 }
 
 - (float)widthForChoices
@@ -42,8 +41,7 @@
 
 - (void)setChoices:(NSArray *)inChoices
 {
-	[choices release];
-	choices = [inChoices retain];
+	choices = inChoices;
 
 	/* not sure why we need extra space, but we do */
 #define MAGIC_NECESSARY_ADDITIONAL_MARGIN 20
@@ -84,7 +82,7 @@
     
     ESPopoverTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[ESPopoverTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[ESPopoverTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
 	ESPopoverChoice *choice = [self.choices objectAtIndex:indexPath.row];

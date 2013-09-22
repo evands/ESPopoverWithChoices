@@ -9,6 +9,6 @@
 
 @interface ESPopoverChoice : NSObject
 + (ESPopoverChoice *)popoverChoiceWithName:(NSString *)newName value:(NSNumber *)newValue;
-@property (nonatomic, retain) NSString *name;
-@property (nonatomic, retain) NSNumber *value;
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSNumber *value;
 @end
