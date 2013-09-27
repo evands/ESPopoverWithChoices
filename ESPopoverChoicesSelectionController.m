@@ -86,10 +86,14 @@
     }
     
 	ESPopoverChoice *choice = [self.choices objectAtIndex:indexPath.row];
-	cell.textLabel.text = choice.name;
-	cell.textLabel.textColor = [UIColor whiteColor];
-	cell.textLabel.font = CHOICES_FONT;
+    
+    BOOL iOSSevenOrAbove = ([UIDevice currentDevice].systemVersion.doubleValue >= 7.0);
+	cell.textLabel.textColor = (iOSSevenOrAbove ? [UIColor blackColor] : [UIColor whiteColor]);
+    cell.textLabel.font = CHOICES_FONT;
+    cell.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    cell.textLabel.adjustsFontSizeToFitWidth = YES;
 	cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+	cell.textLabel.text = choice.name;
 
     return cell;
 }
