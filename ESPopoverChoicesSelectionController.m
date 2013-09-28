@@ -44,8 +44,9 @@
 	choices = inChoices;
 
 	/* not sure why we need extra space, but we do */
-#define MAGIC_NECESSARY_ADDITIONAL_MARGIN 20
-	self.contentSizeForViewInPopover = CGSizeMake(([self widthForChoices] + 
+#define MAGIC_NECESSARY_ADDITIONAL_MARGIN (([UIDevice currentDevice].systemVersion.doubleValue >= 7.0) ? 36 : 20)
+    
+	self.contentSizeForViewInPopover = CGSizeMake(([self widthForChoices] +
 												  self.tableView.contentInset.left + self.tableView.contentInset.right + MAGIC_NECESSARY_ADDITIONAL_MARGIN),
 												  (choices.count * self.tableView.rowHeight + 
 												   self.tableView.contentInset.top + self.tableView.contentInset.bottom));
