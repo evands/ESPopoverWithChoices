@@ -93,6 +93,17 @@
     return choices.count;
 }
 
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ESPopoverChoice *choice = [self.choices objectAtIndex:indexPath.row];
+	if (choice.isSeparator)
+        return 8.0f;
+    else
+        return 44.0f;
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
