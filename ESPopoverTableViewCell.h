@@ -6,7 +6,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UITableViewConsistentImageCell.h"
 
-@interface ESPopoverTableViewCell : UITableViewCell
+@interface ESPopoverTableViewCell : UITableViewConsistentImageCell
 
 @end

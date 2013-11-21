@@ -8,7 +8,14 @@
 #import <Foundation/Foundation.h>
 
 @interface ESPopoverChoice : NSObject
-+ (ESPopoverChoice *)popoverChoiceWithName:(NSString *)newName value:(NSNumber *)newValue;
++ (ESPopoverChoice *)popoverChoiceWithName:(NSString *)newName value:(NSObject *)newValue image:(UIImage *)image;
+
++ (ESPopoverChoice *)popoverChoiceSeparator;
+
 @property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSNumber *value;
+@property (nonatomic, strong) NSObject *value;
+@property (nonatomic, strong) UIImage *image;
+
+@property (nonatomic) BOOL isSeparator;
+
 @end
