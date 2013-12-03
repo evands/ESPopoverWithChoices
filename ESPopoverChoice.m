@@ -7,6 +7,7 @@
 
 #import "ESPopoverChoice.h"
 
+#define INVERT_IOS7_IMAGES 1
 @implementation ESPopoverChoice
 
 @synthesize name, value, image;
@@ -17,7 +18,21 @@
 	ESPopoverChoice *p = [[ESPopoverChoice alloc] init];
 	p.name = newName;
 	p.value = newValue;
-	p.image = inImage;
+    
+#if INVERT_IOS7_IMAGES
+    BOOL iOSSevenOrAbove = ([UIDevice currentDevice].systemVersion.doubleValue >= 7.0);
+    if (iOSSevenOrAbove) {
+        CIFilter* filter = [CIFilter filterWithName:@"CIColorInvert"];
+        [filter setDefaults];
+        
+        [filter setValue:[[CIImage alloc] initWithCGImage:inImage.CGImage]
+                  forKey:@"inputImage"];
+        inImage = [[UIImage alloc] initWithCIImage:filter.outputImage scale:inImage.scale orientation:inImage.imageOrientation];
+    }
+#endif
+
+    p.image = inImage;
+
 	return p;
 }
 
