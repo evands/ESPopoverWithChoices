@@ -19,7 +19,7 @@
 
 
 #define IMAGE_SIZE CGSizeMake(20, 20)
-#define IMAGE_INSET 5
+#define IMAGE_INSET (([UIDevice currentDevice].systemVersion.doubleValue >= 7.0) ? 10 : 5)
 #define IMAGE_TO_TEXT_MARGIN 10
 
 - (void)dealloc
@@ -48,7 +48,7 @@
 		
 		float aWidth = [name sizeWithFont:font].width;
 		if (atLeastOneImage)
-			aWidth += IMAGE_SIZE.width + IMAGE_INSET + IMAGE_TO_TEXT_MARGIN;
+			aWidth += IMAGE_SIZE.width + IMAGE_TO_TEXT_MARGIN;
 
 		maxWidth = MAX(maxWidth, aWidth);
 	}
@@ -59,12 +59,17 @@
 - (void)setChoices:(NSArray *)inChoices
 {
 	choices = inChoices;
+    
+    CGFloat tableHeight = 0;
+    for (int i = 0; i < choices.count; i++) {
+        tableHeight += [self tableView:self.tableView heightForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+    }
 
 	/* not sure why we need extra space, but we do */
-#define MAGIC_NECESSARY_ADDITIONAL_MARGIN (([UIDevice currentDevice].systemVersion.doubleValue >= 7.0) ? 36 : 20)
+#define MAGIC_NECESSARY_ADDITIONAL_MARGIN (([UIDevice currentDevice].systemVersion.doubleValue >= 7.0) ? IMAGE_INSET*2 : 20)
 	self.contentSizeForViewInPopover = CGSizeMake(([self widthForChoices] +
 												  self.tableView.contentInset.left + self.tableView.contentInset.right + MAGIC_NECESSARY_ADDITIONAL_MARGIN),
-												  (choices.count * self.tableView.rowHeight + 
+												  (tableHeight +
 												   self.tableView.contentInset.top + self.tableView.contentInset.bottom));
 		  
 	[self.tableView reloadData];
@@ -98,7 +103,7 @@
 {
     ESPopoverChoice *choice = [self.choices objectAtIndex:indexPath.row];
 	if (choice.isSeparator)
-        return 8.0f;
+        return 12.0f;
     else
         return 44.0f;
 }
