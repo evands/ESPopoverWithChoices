@@ -19,7 +19,7 @@
 
 
 #define IMAGE_SIZE CGSizeMake(20, 20)
-#define IMAGE_INSET (([UIDevice currentDevice].systemVersion.doubleValue >= 7.0) ? 10 : 5)
+#define LEFT_MARGIN_INSET (([UIDevice currentDevice].systemVersion.doubleValue >= 7.0) ? 10 : 5)
 #define IMAGE_TO_TEXT_MARGIN 10
 
 - (void)dealloc
@@ -29,17 +29,7 @@
 }
 
 - (float)widthForChoices
-{	
-	BOOL atLeastOneImage = NO;
-	
-	/* If there is a single image, all choices will be indented that much */
-	for (ESPopoverChoice *choice in self.choices) {
-		if (choice.image) {
-			atLeastOneImage = YES;
-			break;
-		}
-	}
-	
+{
 	UIFont *font = CHOICES_FONT;
 	float maxWidth = 0;
 
@@ -60,13 +50,22 @@
 {
 	choices = inChoices;
     
+    atLeastOneImage = NO;
+	/* If there is a single image, all choices will be indented that much */
+	for (ESPopoverChoice *choice in choices) {
+		if (choice.image) {
+			atLeastOneImage = YES;
+			break;
+		}
+	}
+    
     CGFloat tableHeight = 0;
     for (int i = 0; i < choices.count; i++) {
         tableHeight += [self tableView:self.tableView heightForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
     }
 
 	/* not sure why we need extra space, but we do */
-#define MAGIC_NECESSARY_ADDITIONAL_MARGIN (([UIDevice currentDevice].systemVersion.doubleValue >= 7.0) ? IMAGE_INSET*2 : 20)
+#define MAGIC_NECESSARY_ADDITIONAL_MARGIN (([UIDevice currentDevice].systemVersion.doubleValue >= 7.0) ? LEFT_MARGIN_INSET*2 : 20)
 	self.contentSizeForViewInPopover = CGSizeMake(([self widthForChoices] +
 												  self.tableView.contentInset.left + self.tableView.contentInset.right + MAGIC_NECESSARY_ADDITIONAL_MARGIN),
 												  (tableHeight +
@@ -116,11 +115,17 @@
     ESPopoverTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[ESPopoverTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-		
-		cell.imageViewSize = IMAGE_SIZE;
-		cell.insetX = IMAGE_INSET;
-		cell.imageViewToTextLabelMargin = IMAGE_TO_TEXT_MARGIN;
     }
+    
+    if (atLeastOneImage) {
+        cell.imageViewSize = IMAGE_SIZE;
+		cell.imageViewToTextLabelMargin = IMAGE_TO_TEXT_MARGIN;
+    } else {
+        cell.imageViewSize = CGSizeZero;
+		cell.imageViewToTextLabelMargin = 0;
+    }
+    cell.insetX = LEFT_MARGIN_INSET;
+
     
 	ESPopoverChoice *choice = [self.choices objectAtIndex:indexPath.row];
 

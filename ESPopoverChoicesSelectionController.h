@@ -15,7 +15,9 @@
 @end
 
 @interface ESPopoverChoicesSelectionController : UITableViewController
-
+{
+    BOOL atLeastOneImage;
+}
 @property (nonatomic, strong) NSArray *choices;
 @property (nonatomic, unsafe_unretained) id<ESPopoverChoicesSelectionControllerDelegate> delegate;
 @property (nonatomic) int tag;
