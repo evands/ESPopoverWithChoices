@@ -65,12 +65,16 @@
     }
 
 	/* not sure why we need extra space, but we do */
-#define MAGIC_NECESSARY_ADDITIONAL_MARGIN (([UIDevice currentDevice].systemVersion.doubleValue >= 7.0) ? LEFT_MARGIN_INSET*2 : 20)
-	self.contentSizeForViewInPopover = CGSizeMake(([self widthForChoices] +
-												  self.tableView.contentInset.left + self.tableView.contentInset.right + MAGIC_NECESSARY_ADDITIONAL_MARGIN),
-												  (tableHeight +
-												   self.tableView.contentInset.top + self.tableView.contentInset.bottom));
-		  
+#define MAGIC_NECESSARY_ADDITIONAL_MARGIN (([UIDevice currentDevice].systemVersion.doubleValue >= 7.0) ? IMAGE_INSET*2 : 20)
+    CGSize desiredSize = CGSizeMake(([self widthForChoices] +
+                                     self.tableView.contentInset.left + self.tableView.contentInset.right + MAGIC_NECESSARY_ADDITIONAL_MARGIN),
+                                    (tableHeight +
+                                     self.tableView.contentInset.top + self.tableView.contentInset.bottom));
+    if ([self respondsToSelector:@selector(setPreferredContentSize:)])
+        self.preferredContentSize = desiredSize;
+    else
+        self.contentSizeForViewInPopover = desiredSize;
+
 	[self.tableView reloadData];
 }
 
@@ -100,7 +104,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ESPopoverChoice *choice = [self.choices objectAtIndex:indexPath.row];
+    ESPopoverChoice *choice = (self.choices)[indexPath.row];
 	if (choice.isSeparator)
         return 12.0f;
     else
@@ -127,7 +131,7 @@
     cell.insetX = LEFT_MARGIN_INSET;
 
     
-	ESPopoverChoice *choice = [self.choices objectAtIndex:indexPath.row];
+	ESPopoverChoice *choice = (self.choices)[indexPath.row];
 
 	if (choice.isSeparator) {
 		cell.textLabel.text = @"";
@@ -160,7 +164,7 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	ESPopoverChoice *choice = [self.choices objectAtIndex:indexPath.row];
+	ESPopoverChoice *choice = (self.choices)[indexPath.row];
 	if (choice.isSeparator)
 		return nil;
 	else
@@ -170,7 +174,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	[self.delegate popoverChoicesSelectionController:self
-									 didSelectChoice:[self.choices objectAtIndex:indexPath.row]];
+									 didSelectChoice:(self.choices)[indexPath.row]];
 	
 	[self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
