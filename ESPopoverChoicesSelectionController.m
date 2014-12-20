@@ -65,7 +65,7 @@
     }
 
 	/* not sure why we need extra space, but we do */
-#define MAGIC_NECESSARY_ADDITIONAL_MARGIN (([UIDevice currentDevice].systemVersion.doubleValue >= 7.0) ? IMAGE_INSET*2 : 20)
+#define MAGIC_NECESSARY_ADDITIONAL_MARGIN (([UIDevice currentDevice].systemVersion.doubleValue >= 7.0) ? LEFT_MARGIN_INSET*2 : 20)
     CGSize desiredSize = CGSizeMake(([self widthForChoices] +
                                      self.tableView.contentInset.left + self.tableView.contentInset.right + MAGIC_NECESSARY_ADDITIONAL_MARGIN),
                                     (tableHeight +
