@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "ESPopoverWithChoices"
-  s.version      = "2.0"
+  s.version      = "2.1"
   s.summary      = "Small helper class to display a set of choices in a popover."
 
   s.description  = <<-DESC
@@ -36,7 +36,7 @@ Pod::Spec.new do |s|
   #  Popular ones are 'MIT', 'BSD' and 'Apache License, Version 2.0'.
   #
 
-  s.license      = "MIT (example)"
+  s.license      = "MIT"
   # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
 
 
@@ -61,7 +61,7 @@ Pod::Spec.new do |s|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-  s.platform     = :ios
+  s.platform     = :ios, "6.0"
   # s.platform     = :ios, "5.0"
 
   #  When using multiple platforms
@@ -75,7 +75,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/evands/ESPopoverWithChoices.git", :tag => "2.0" }
+  s.source       = { :git => "https://github.com/evands/ESPopoverWithChoices.git", :tag => "2.1" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
