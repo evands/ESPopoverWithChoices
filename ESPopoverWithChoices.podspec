@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "ESPopoverWithChoices"
-  s.version      = "2.2"
+  s.version      = "2.3"
   s.summary      = "Small helper class to display a set of choices in a popover."
 
   s.description  = <<-DESC
@@ -128,6 +128,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  s.dependency 'WYPopoverController', '~> 0.3.8', :git => 'https://github.com/sammcewan/WYPopoverController.git'
+  # s.dependency 'WYPopoverController', :head, :git => 'https://github.com/sammcewan/WYPopoverController.git'
 
 end
