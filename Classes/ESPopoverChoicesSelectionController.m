@@ -9,9 +9,13 @@
 #import "ESPopoverChoice.h"
 #import "ESPopoverTableViewCell.h"
 
+@interface ESPopoverChoicesSelectionController ()
+@property (nonatomic, retain) NSArray *choices;
+@property (copy) void(^completion)(ESPopoverChoice *);
+@end
+
 @implementation ESPopoverChoicesSelectionController
 
-@synthesize delegate;
 @synthesize choices;
 @synthesize tag;
 
@@ -21,11 +25,13 @@
 #define IMAGE_SIZE CGSizeMake(20, 20)
 #define LEFT_MARGIN_INSET (([UIDevice currentDevice].systemVersion.doubleValue >= 7.0) ? 10 : 5)
 #define IMAGE_TO_TEXT_MARGIN 10
-
-- (void)dealloc
++ (ESPopoverChoicesSelectionController *)selectionControllerForChoices:(NSArray *)choices
+                                                  choiceMadeCompletion:(void(^)(ESPopoverChoice *))completion
 {
-	self.delegate = nil;
-    self.choices = nil;
+    ESPopoverChoicesSelectionController *sc = [[self alloc] initWithStyle:UITableViewStylePlain];
+    sc.choices = choices;
+    sc.completion = completion;
+    return sc;
 }
 
 - (float)widthForChoices
@@ -173,9 +179,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	[self.delegate popoverChoicesSelectionController:self
-									 didSelectChoice:(self.choices)[indexPath.row]];
-	
+    self.completion((self.choices)[indexPath.row]);
+
 	[self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 

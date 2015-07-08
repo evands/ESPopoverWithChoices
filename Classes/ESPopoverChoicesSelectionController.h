@@ -10,16 +10,16 @@
 
 @class ESPopoverChoicesSelectionController;
 
-@protocol ESPopoverChoicesSelectionControllerDelegate
-- (void)popoverChoicesSelectionController:(ESPopoverChoicesSelectionController *)controller didSelectChoice:(ESPopoverChoice *)choice; 
-@end
+typedef int (^ESPopoverChoicesSelectionBlock)(ESPopoverChoice *choice);
 
 @interface ESPopoverChoicesSelectionController : UITableViewController
 {
     BOOL atLeastOneImage;
 }
-@property (nonatomic, strong) NSArray *choices;
-@property (nonatomic, unsafe_unretained) id<ESPopoverChoicesSelectionControllerDelegate> delegate;
+
++ (ESPopoverChoicesSelectionController *)selectionControllerForChoices:(NSArray *)choices
+                                                  choiceMadeCompletion:(void(^)(ESPopoverChoice *))completion;
+
 @property (nonatomic) int tag;
 
 @end
