@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "ESPopoverWithChoices"
-  s.version      = "2.3"
+  s.version      = "2.3.1"
   s.summary      = "Small helper class to display a set of choices in a popover."
 
   s.description  = <<-DESC
@@ -75,7 +75,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/evands/ESPopoverWithChoices.git", :tag => "2.1" }
+  s.source       = { :git => "https://github.com/evands/ESPopoverWithChoices.git", :tag => "2.3.1" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -128,6 +128,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  # s.dependency 'WYPopoverController', :head, :git => 'https://github.com/sammcewan/WYPopoverController.git'
+  # s.dependency 
 
 end
