@@ -10,28 +10,36 @@
 #define INVERT_IOS7_IMAGES 1
 @implementation ESPopoverChoice
 
-@synthesize name, value, image;
+@synthesize name = _name, value, image;
 @synthesize isSeparator;
 
-+ (ESPopoverChoice *)popoverChoiceWithName:(NSString *)newName value:(NSObject *)newValue image:(UIImage *)inImage
+
++ (ESPopoverChoice *)popoverChoiceWithAttributedName:(NSAttributedString *)attributedName value:(NSObject *)value image:(UIImage *)image
 {
-	ESPopoverChoice *p = [[ESPopoverChoice alloc] init];
-	p.name = newName;
-	p.value = newValue;
+    ESPopoverChoice *p = [[ESPopoverChoice alloc] init];
+    p.attributedName = attributedName;
+    p.value = value;
     
 #if INVERT_IOS7_IMAGES
-    BOOL iOSSevenOrAbove = ([UIDevice currentDevice].systemVersion.doubleValue >= 7.0);
-    if (iOSSevenOrAbove) {
-        CIFilter* filter = [CIFilter filterWithName:@"CIColorInvert"];
-        [filter setDefaults];
-        
-        [filter setValue:[[CIImage alloc] initWithCGImage:inImage.CGImage]
-                  forKey:@"inputImage"];
-        inImage = [[UIImage alloc] initWithCIImage:filter.outputImage scale:inImage.scale orientation:inImage.imageOrientation];
-    }
+    [p invertAndSetImage:image];
+#else
+    p.image = image;
 #endif
+    
+    return p;
+}
 
-    p.image = inImage;
++ (ESPopoverChoice *)popoverChoiceWithName:(NSString *)name value:(NSObject *)value image:(UIImage *)image
+{
+	ESPopoverChoice *p = [[ESPopoverChoice alloc] init];
+	p.name = name;
+	p.value = value;
+
+#if INVERT_IOS7_IMAGES
+    [p invertAndSetImage:image];
+#else
+    p.image = image;
+#endif
 
 	return p;
 }
@@ -41,6 +49,26 @@
 	ESPopoverChoice *p = [[ESPopoverChoice alloc] init];
 	p.isSeparator = YES;
 	return p;
+}
+
+- (NSString *)name
+{
+    if (self.attributedName)
+        return self.attributedName.string;
+    else
+        return _name;
+}
+
+- (void)invertAndSetImage:(UIImage *)inImage
+{
+    CIFilter* filter = [CIFilter filterWithName:@"CIColorInvert"];
+    [filter setDefaults];
+    
+    [filter setValue:[[CIImage alloc] initWithCGImage:inImage.CGImage]
+              forKey:@"inputImage"];
+    inImage = [[UIImage alloc] initWithCIImage:filter.outputImage scale:inImage.scale orientation:inImage.imageOrientation];
+    
+    self.image = inImage;
 }
 
 - (NSString *)description

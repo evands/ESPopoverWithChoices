@@ -19,9 +19,6 @@
 @synthesize choices;
 @synthesize tag;
 
-#define CHOICES_FONT [UIFont systemFontOfSize:19]
-
-
 #define IMAGE_SIZE CGSizeMake(20, 20)
 #define LEFT_MARGIN_INSET (([UIDevice currentDevice].systemVersion.doubleValue >= 7.0) ? 10 : 5)
 #define IMAGE_TO_TEXT_MARGIN 10
@@ -31,18 +28,37 @@
     ESPopoverChoicesSelectionController *sc = [[self alloc] initWithStyle:UITableViewStylePlain];
     sc.choices = choices;
     sc.completion = completion;
+    sc.allowMultilineChoices = YES;
+    sc.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+
     return sc;
 }
 
 - (float)widthForChoices
 {
-	UIFont *font = CHOICES_FONT;
+	UIFont *font = kESPopoverChoicesDefaultFont;
 	float maxWidth = 0;
-
+    float height = self.tableView.rowHeight;
+    
 	for (ESPopoverChoice *choice in self.choices) {
-		NSString *name = choice.name;
-		
-		float aWidth = [name sizeWithFont:font].width;
+        CGRect rect;
+        float aWidth;
+        
+        if (choice.attributedName) {
+            rect = [choice.attributedName boundingRectWithSize:CGSizeMake(300, height)
+                                                       options:NSStringDrawingUsesLineFragmentOrigin
+                                                       context:nil];
+
+        } else {
+            NSDictionary *attributes = @{NSFontAttributeName:font};
+            rect = [choice.name boundingRectWithSize:CGSizeMake(300, height)
+                                      options:NSStringDrawingUsesLineFragmentOrigin
+                                   attributes:attributes
+                                      context:nil];
+        }
+        
+        aWidth = CGRectGetWidth(rect);
+        
 		if (atLeastOneImage)
 			aWidth += IMAGE_SIZE.width + IMAGE_TO_TEXT_MARGIN;
 
@@ -145,13 +161,17 @@
 		cell.imageView.image = nil;
 
 	} else {
-        BOOL iOSSevenOrAbove = ([UIDevice currentDevice].systemVersion.doubleValue >= 7.0);
-        cell.textLabel.textColor = (iOSSevenOrAbove ? [UIColor blackColor] : [UIColor whiteColor]);
-		cell.textLabel.text = choice.name;
-        cell.textLabel.adjustsFontSizeToFitWidth = YES;
-		cell.textLabel.font = CHOICES_FONT;
-        cell.textLabel.lineBreakMode = NSLineBreakByTruncatingTail;
-		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+        cell.textLabel.textColor = [UIColor blackColor];
+        
+        if (choice.attributedName)
+            cell.textLabel.attributedText = choice.attributedName;
+        else {
+            cell.textLabel.text = choice.name;
+            cell.textLabel.font = kESPopoverChoicesDefaultFont;
+        }
+        cell.textLabel.numberOfLines = (self.allowMultilineChoices ? 0 : 1);
+        cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+		cell.selectionStyle = UITableViewCellSelectionStyleDefault;
 		cell.imageView.image = choice.image;
 
 		NSString *accessibilityLabel = choice.accessibilityLabel;

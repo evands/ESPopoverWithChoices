@@ -8,11 +8,16 @@
 #import <Foundation/Foundation.h>
 
 @interface ESPopoverChoice : NSObject
-+ (ESPopoverChoice *)popoverChoiceWithName:(NSString *)newName value:(NSObject *)newValue image:(UIImage *)image;
++ (ESPopoverChoice *)popoverChoiceWithName:(NSString *)name value:(NSObject *)value image:(UIImage *)image;
++ (ESPopoverChoice *)popoverChoiceWithAttributedName:(NSAttributedString *)attributedName value:(NSObject *)value image:(UIImage *)image;
 
 + (ESPopoverChoice *)popoverChoiceSeparator;
 
+/* If attributedText is specified, it is preferred over name */
 @property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSAttributedString *attributedName;
+
+
 @property (nonatomic, strong) NSObject *value;
 @property (nonatomic, strong) UIImage *image;
 

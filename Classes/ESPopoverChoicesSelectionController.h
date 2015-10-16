@@ -12,6 +12,8 @@
 
 typedef int (^ESPopoverChoicesSelectionBlock)(ESPopoverChoice *choice);
 
+#define kESPopoverChoicesDefaultFont [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline]
+
 @interface ESPopoverChoicesSelectionController : UITableViewController
 {
     BOOL atLeastOneImage;
@@ -21,5 +23,6 @@ typedef int (^ESPopoverChoicesSelectionBlock)(ESPopoverChoice *choice);
                                                   choiceMadeCompletion:(void(^)(ESPopoverChoice *))completion;
 
 @property (nonatomic) int tag;
+@property (nonatomic) BOOL allowMultilineChoices;
 
 @end
