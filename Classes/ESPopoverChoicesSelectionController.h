@@ -19,9 +19,12 @@ typedef int (^ESPopoverChoicesSelectionBlock)(ESPopoverChoice *choice);
     BOOL atLeastOneImage;
 }
 
++ (ESPopoverChoicesSelectionController *)selectionController;
 + (ESPopoverChoicesSelectionController *)selectionControllerForChoices:(NSArray *)choices
                                                   choiceMadeCompletion:(void(^)(ESPopoverChoice *))completion;
 
+@property (nonatomic, retain) NSArray *choices;
+@property (copy) void(^completion)(ESPopoverChoice *);
 @property (nonatomic) int tag;
 @property (nonatomic) BOOL allowMultilineChoices;
 

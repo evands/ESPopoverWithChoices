@@ -22,15 +22,22 @@
 #define IMAGE_SIZE CGSizeMake(20, 20)
 #define LEFT_MARGIN_INSET (([UIDevice currentDevice].systemVersion.doubleValue >= 7.0) ? 10 : 5)
 #define IMAGE_TO_TEXT_MARGIN 10
+
++ (ESPopoverChoicesSelectionController *)selectionController
+{
+    ESPopoverChoicesSelectionController *sc = [[self alloc] initWithStyle:UITableViewStylePlain];
+    sc.allowMultilineChoices = YES;
+    sc.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    
+    return sc;
+}
 + (ESPopoverChoicesSelectionController *)selectionControllerForChoices:(NSArray *)choices
                                                   choiceMadeCompletion:(void(^)(ESPopoverChoice *))completion
 {
-    ESPopoverChoicesSelectionController *sc = [[self alloc] initWithStyle:UITableViewStylePlain];
+    ESPopoverChoicesSelectionController *sc = [self selectionController];
     sc.choices = choices;
     sc.completion = completion;
-    sc.allowMultilineChoices = YES;
-    sc.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-
+ 
     return sc;
 }
 
