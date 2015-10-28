@@ -10,8 +10,7 @@
 #import "ESPopoverTableViewCell.h"
 
 @interface ESPopoverChoicesSelectionController ()
-@property (nonatomic, retain) NSArray *choices;
-@property (copy) void(^completion)(ESPopoverChoice *);
+
 @end
 
 @implementation ESPopoverChoicesSelectionController
