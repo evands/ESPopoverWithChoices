@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "ESPopoverWithChoices"
-  s.version      = "2.3.4"
+  s.version      = "2.3.5"
   s.summary      = "Small helper class to display a set of choices in a popover."
 
   s.description  = <<-DESC
