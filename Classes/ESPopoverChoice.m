@@ -61,12 +61,14 @@
 
 - (void)invertAndSetImage:(UIImage *)inImage
 {
-    CIFilter* filter = [CIFilter filterWithName:@"CIColorInvert"];
-    [filter setDefaults];
-    
-    [filter setValue:[[CIImage alloc] initWithCGImage:inImage.CGImage]
-              forKey:@"inputImage"];
-    inImage = [[UIImage alloc] initWithCIImage:filter.outputImage scale:inImage.scale orientation:inImage.imageOrientation];
+    if (inImage) {
+        CIFilter* filter = [CIFilter filterWithName:@"CIColorInvert"];
+        [filter setDefaults];
+        
+        [filter setValue:[[CIImage alloc] initWithCGImage:inImage.CGImage]
+                  forKey:@"inputImage"];
+        inImage = [[UIImage alloc] initWithCIImage:filter.outputImage scale:inImage.scale orientation:inImage.imageOrientation];
+    }
     
     self.image = inImage;
 }
