@@ -19,7 +19,7 @@
 @synthesize tag;
 
 #define IMAGE_SIZE CGSizeMake(20, 20)
-#define LEFT_MARGIN_INSET (([UIDevice currentDevice].systemVersion.doubleValue >= 7.0) ? 10 : 5)
+#define LEFT_MARGIN_INSET 10
 #define IMAGE_TO_TEXT_MARGIN 10
 
 + (ESPopoverChoicesSelectionController *)selectionController
@@ -98,10 +98,7 @@
                                      self.tableView.contentInset.left + self.tableView.contentInset.right + MAGIC_NECESSARY_ADDITIONAL_MARGIN),
                                     (tableHeight +
                                      self.tableView.contentInset.top + self.tableView.contentInset.bottom));
-    if ([self respondsToSelector:@selector(setPreferredContentSize:)])
-        self.preferredContentSize = desiredSize;
-    else
-        self.contentSizeForViewInPopover = desiredSize;
+    self.preferredContentSize = desiredSize;
 
 	[self.tableView reloadData];
 }
