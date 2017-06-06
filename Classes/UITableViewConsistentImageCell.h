@@ -8,7 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-
+/*!
+ * @class UITableViewConsistentImageCell
+ * @brief A table view cell whose image view doesn't change position if its height changes.
+ *
+ * Useful for a table of variable height cells with images that should line up horizontally.
+ */
 @interface UITableViewConsistentImageCell : UITableViewCell {
 
 }
