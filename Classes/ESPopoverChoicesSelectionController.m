@@ -31,7 +31,7 @@
     return sc;
 }
 + (ESPopoverChoicesSelectionController *)selectionControllerForChoices:(NSArray *)choices
-                                                  choiceMadeCompletion:(void(^)(ESPopoverChoice *))completion
+                                                  choiceMadeCompletion:(ESPopoverChoicesSelectionBlock)completion
 {
     ESPopoverChoicesSelectionController *sc = [self selectionController];
     sc.choices = choices;

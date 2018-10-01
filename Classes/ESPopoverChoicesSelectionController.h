@@ -21,10 +21,10 @@ typedef void (^ESPopoverChoicesSelectionBlock)(ESPopoverChoicesSelectionControll
 
 + (ESPopoverChoicesSelectionController *)selectionController;
 + (ESPopoverChoicesSelectionController *)selectionControllerForChoices:(NSArray *)choices
-                                                  choiceMadeCompletion:(void(^)(ESPopoverChoice *))completion;
+                                                  choiceMadeCompletion:(ESPopoverChoicesSelectionBlock)completion;
 
 @property (nonatomic, retain) NSArray *choices;
-@property (copy) void(^completion)(ESPopoverChoice *);
+@property (copy) ESPopoverChoicesSelectionBlock completion;
 @property (nonatomic) int tag;
 @property (nonatomic) BOOL allowMultilineChoices;
 
