@@ -202,7 +202,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.completion((self.choices)[indexPath.row]);
+    self.completion(self, (self.choices)[indexPath.row]);
 
 	[self.tableView deselectRowAtIndexPath:indexPath animated:NO];
 }

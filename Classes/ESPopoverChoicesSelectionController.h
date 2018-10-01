@@ -10,7 +10,7 @@
 
 @class ESPopoverChoicesSelectionController;
 
-typedef int (^ESPopoverChoicesSelectionBlock)(ESPopoverChoice *choice);
+typedef void (^ESPopoverChoicesSelectionBlock)(ESPopoverChoicesSelectionController *controller, ESPopoverChoice *choice);
 
 #define kESPopoverChoicesDefaultFont [UIFont preferredFontForTextStyle:UIFontTextStyleSubheadline]
 
