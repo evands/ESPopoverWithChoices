@@ -163,9 +163,7 @@
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		cell.imageView.image = nil;
 
-	} else {
-        cell.textLabel.textColor = [UIColor blackColor];
-        
+	} else {        
         if (choice.attributedName)
             cell.textLabel.attributedText = choice.attributedName;
         else {
