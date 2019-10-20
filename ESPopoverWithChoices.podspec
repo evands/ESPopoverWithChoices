@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "ESPopoverWithChoices"
-  s.version      = "2.3.7"
+  s.version      = "2.3.8"
   s.summary      = "Small helper class to display a set of choices in a popover."
 
   s.description  = <<-DESC
@@ -69,7 +69,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/evands/ESPopoverWithChoices.git", :tag => "2.3.7" }
+  s.source       = { :git => "https://github.com/evands/ESPopoverWithChoices.git", :tag => "2.3.8" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
