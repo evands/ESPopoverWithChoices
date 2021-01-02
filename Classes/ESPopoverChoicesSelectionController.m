@@ -24,7 +24,7 @@
 
 + (ESPopoverChoicesSelectionController *)selectionController
 {
-    ESPopoverChoicesSelectionController *sc = [[self alloc] initWithStyle:UITableViewStylePlain];
+    ESPopoverChoicesSelectionController *sc = [(ESPopoverChoicesSelectionController *)[self alloc] initWithStyle:UITableViewStylePlain];
     sc.allowMultilineChoices = YES;
     sc.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     
